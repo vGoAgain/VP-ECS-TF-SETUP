@@ -23,7 +23,7 @@ variable "secondary-az" {
 }
 
 variable "app_name" {
-  default = "student-portal"
+  default = "aws-lens"
 }
 
 variable "prefix" {

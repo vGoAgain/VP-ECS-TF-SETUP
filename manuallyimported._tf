@@ -1,0 +1,61 @@
+# __generated__ by Terraform
+# Please review these resources and move them into your main configuration files.
+
+# __generated__ by Terraform from "arn:aws:ecs:eu-west-3:477059411744:task-definition/ecs-vp-aws-lens:3"
+resource "aws_ecs_task_definition" "manualimport" {
+  container_definitions = jsonencode([{
+    environment = [{
+      name  = "AWS_REGION"
+      value = "eu-west-3"
+      }, {
+      name  = "DB_SECRET_NAME"
+      value = "prod/awslens/db"
+      }, {
+      name  = "FLASK_SECRET_KEY"
+      value = "Ka0bJO9wBUb59VS3J0yvsiLlg4Wy0s5Hxb/D/Y4A"
+    }]
+    environmentFiles = []
+    essential        = true
+    image            = "477059411744.dkr.ecr.eu-west-3.amazonaws.com/vp/vp-aws-lens:1.0"
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogs-create-group  = "true"
+        awslogs-group         = "/ecs/ecs-vp-aws-lens"
+        awslogs-region        = "eu-west-3"
+        awslogs-stream-prefix = "ecs"
+      }
+      secretOptions = []
+    }
+    mountPoints = []
+    name        = "vp-aws-lens"
+    portMappings = [{
+      appProtocol   = "http"
+      containerPort = 5000
+      hostPort      = 5000
+      name          = "vp-aws-lens-5000-tcp"
+      protocol      = "tcp"
+    }]
+    systemControls = []
+    ulimits        = []
+    volumesFrom    = []
+  }])
+  cpu                      = "1024"
+  enable_fault_injection   = false
+  execution_role_arn       = "arn:aws:iam::477059411744:role/ecsTaskExecutionRole"
+  family                   = "ecs-vp-aws-lens"
+  ipc_mode                 = null
+  memory                   = "3072"
+  network_mode             = "awsvpc"
+  pid_mode                 = null
+  requires_compatibilities = ["FARGATE"]
+  skip_destroy             = null
+  tags                     = {}
+  tags_all                 = {}
+  task_role_arn            = "arn:aws:iam::477059411744:role/ecsTaskExecutionRole"
+  track_latest             = false
+  runtime_platform {
+    cpu_architecture        = "X86_64"
+    operating_system_family = "LINUX"
+  }
+}

@@ -1,0 +1,5 @@
+import {
+  to = aws_ecs_task_definition.manualimport
+  id = "arn:aws:ecs:eu-west-3:477059411744:task-definition/ecs-vp-aws-lens:3"
+}
+

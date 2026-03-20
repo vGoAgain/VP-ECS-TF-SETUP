@@ -37,11 +37,33 @@ resource "aws_ecs_task_definition" "service" {
         {
           containerPort = var.container_port
           hostPort      = var.container_port
+          protocol      = "tcp"
         }
       ]
+      environment = [{
+      name  = "AWS_REGION"
+      value = "eu-west-3"
+      }, {
+      name  = "DB_SECRET_NAME"
+      value = "prod/awslens/db"
+      }, {
+      name  = "FLASK_SECRET_KEY"
+      value = "some-random-text"
+      }]
+      logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogs-create-group  = "true"
+        awslogs-group         = "/ecs/ecs-vp-aws-lens"
+        awslogs-region        = "eu-west-3"
+        awslogs-stream-prefix = "ecs"
+      }
+      secretOptions = []
+      }
     }
   ])
-
+  execution_role_arn = ""
+  requires_compatibilities = ["FARGATE"]
 }
 
 # ECS service
