@@ -29,3 +29,13 @@ variable "app_name" {
 variable "prefix" {
   default = "vp"
 }
+
+variable "image" {
+  type = string
+  default = "477059411744.dkr.ecr.eu-west-3.amazonaws.com/vp/vp-aws-lens:1.0"
+}
+
+variable "container_port" {
+  default = 5000
+  type = number
+}

@@ -29,14 +29,14 @@ resource "aws_ecs_task_definition" "service" {
   container_definitions = jsonencode([
     {
       name      = var.app_name
-      image     = "service-first"
-      cpu       = 10
-      memory    = 512
+      image     = var.image
+      cpu       = 1024
+      memory    = 2048
       essential = true
       portMappings = [
         {
-          containerPort = 80
-          hostPort      = 80
+          containerPort = var.container_port
+          hostPort      = var.container_port
         }
       ]
     }

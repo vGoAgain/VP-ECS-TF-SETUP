@@ -42,3 +42,8 @@ DB
     - secret manager for password
     - generate randome password
     - kms key
+
+
+
+Question ::
+if you want to update the rds version from x to y then how will we update
