@@ -23,7 +23,7 @@ resource "aws_ecs_cluster" "tf-ecs-cluster" {
 }
 
 # task definition
-resource "aws_ecs_task_definition" "service" {
+resource "aws_ecs_task_definition" "tf-ecs-task-def" {
   family = var.app_name
   network_mode = "awsvpc"
   container_definitions = jsonencode([
@@ -42,10 +42,10 @@ resource "aws_ecs_task_definition" "service" {
       ]
       environment = [{
       name  = "AWS_REGION"
-      value = "eu-west-3"
+      value = var.aws_region
       }, {
       name  = "DB_SECRET_NAME"
-      value = "prod/awslens/db"
+      value = aws_secretsmanager_secret.db-password.arn
       }, {
       name  = "FLASK_SECRET_KEY"
       value = "some-random-text"
@@ -62,8 +62,27 @@ resource "aws_ecs_task_definition" "service" {
       }
     }
   ])
-  execution_role_arn = ""
+  cpu = 1024
+  memory = 2048
+  execution_role_arn = aws_iam_role.ecs_task_role.arn
+  task_role_arn = aws_iam_role.ecs_task_role.arn
   requires_compatibilities = ["FARGATE"]
+
+  depends_on = [ aws_iam_role.ecs_task_role ]
 }
 
 # ECS service
+resource "aws_ecs_service" "tf-ecs-service" {
+  name            = "${var.prefix}-${var.app_name}-service"
+  cluster         = aws_ecs_cluster.tf-ecs-cluster.id
+  task_definition = aws_ecs_task_definition.tf-ecs-task-def.arn
+  desired_count   = 1
+  #iam_role        = aws_iam_role.ecs_task_role.arn
+  launch_type     = "FARGATE"
+  
+  network_configuration {
+    assign_public_ip = false
+    subnets = [ aws_subnet.tf-ecs-private-subnet-1.id, aws_subnet.tf-ecs-private-subnet-2.id ]
+    security_groups = [ aws_security_group.ecs_tasks_sg.id ]
+  }
+}

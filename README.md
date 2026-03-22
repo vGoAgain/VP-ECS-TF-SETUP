@@ -47,3 +47,20 @@ DB
 
 Question ::
 if you want to update the rds version from x to y then how will we update
+
+
+suppose you have something resources on the cloud already, how can you import it in the tf state so that you can create a tf file for it>>
+
+import {
+  to = aws_ecs_task_definition.tf-file-name
+  id = "arn:aws:ecs:eu-west-3:477059411744:task-definition/ecs-vp-aws-lens:3"
+}
+
+in this case am trying to reverse engineer the ecs task definition so that i can write the tf for it
+
+
+
+
+aws s3api put-bucket-versioning \
+  --bucket my-terraform-state-bucket \
+  --versioning-configuration Status=Enabled
