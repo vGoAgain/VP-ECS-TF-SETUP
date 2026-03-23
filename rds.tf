@@ -51,5 +51,5 @@ resource "aws_db_instance" "postgres" {
 
   # Networking (you MUST already have these)
   db_subnet_group_name   = aws_db_subnet_group.tf-rds-subnet-group.name
-  #vpc_security_group_ids = [aws_security_group.db_sg.id]
+  vpc_security_group_ids = [aws_security_group.db_sg.id]
 }

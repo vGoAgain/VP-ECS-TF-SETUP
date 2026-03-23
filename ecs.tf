@@ -85,4 +85,10 @@ resource "aws_ecs_service" "tf-ecs-service" {
     subnets = [ aws_subnet.tf-ecs-private-subnet-1.id, aws_subnet.tf-ecs-private-subnet-2.id ]
     security_groups = [ aws_security_group.ecs_tasks_sg.id ]
   }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.tf-ecs-awslens-tg.arn
+    container_name   = var.app_name
+    container_port   = var.container_port
+  }
 }
