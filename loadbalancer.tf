@@ -34,7 +34,7 @@ resource "aws_lb_listener" "tf-ecs-awslens-listener" {
   load_balancer_arn = aws_lb.tf-ecs-awslens-alb.arn
   port              = "443"
   protocol          = "HTTPS"
-  certificate_arn   = "arn:aws:acm:eu-west-3:477059411744:certificate/a45125e1-cd14-4e35-bb15-c1c008ea8d8a"
+  certificate_arn   = aws_acm_certificate.cert.arn
 
   default_action {
     type             = "forward"

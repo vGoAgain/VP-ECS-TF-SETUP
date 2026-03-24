@@ -79,7 +79,8 @@ resource "aws_ecs_service" "tf-ecs-service" {
   desired_count   = 1
   #iam_role        = aws_iam_role.ecs_task_role.arn
   launch_type     = "FARGATE"
-  
+  depends_on = [ aws_secretsmanager_secret.db-password , aws_db_instance.postgres ]
+
   network_configuration {
     assign_public_ip = false
     subnets = [ aws_subnet.tf-ecs-private-subnet-1.id, aws_subnet.tf-ecs-private-subnet-2.id ]
