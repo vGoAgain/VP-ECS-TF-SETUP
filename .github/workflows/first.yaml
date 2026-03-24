@@ -16,4 +16,10 @@ jobs:
           echo "This is a multi-line script."
           echo "You can run multiple commands here."
           echo "GitHub Actions makes it easy to automate your workflows!"
-          
+          sleep 10
+
+  second_job:
+    runs-on: macos-latest
+    steps:
+      - name: Say hello again
+        run: echo "Hello again from the second job and i am running on MAC OS!"
