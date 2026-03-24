@@ -1,0 +1,19 @@
+name: First GithubActionsWorkflow
+
+on:
+  # manually trigger the workflow
+  workflow_dispatch:
+
+jobs:
+  first_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say hello with a single shell command
+        run: echo "Hello, World!"
+
+      - name: Run a multi-line script
+        run: |
+          echo "This is a multi-line script."
+          echo "You can run multiple commands here."
+          echo "GitHub Actions makes it easy to automate your workflows!"
+          

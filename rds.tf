@@ -13,7 +13,7 @@ resource "random_password" "rds-db-password" {
 
 #secret manager create 
 resource "aws_secretsmanager_secret" "db-password" {
-  name = "creds3/awslens/db"
+  name = "creds4/awslens/db"
 }
 
 # secret manager version
