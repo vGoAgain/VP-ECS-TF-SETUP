@@ -1,4 +1,4 @@
-name: ECS Terraform Plan
+name: ECS Terraform Apply
 
 on:
   # manually trigger the workflow
@@ -32,5 +32,5 @@ jobs:
       - name: Terraform fmt check
         run: terraform fmt -check
 
-      - name: Terraform Plan
-        run: terraform plan
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
